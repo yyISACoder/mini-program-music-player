@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="../../assets/images/me.jpg" mode="cover"></image>
+    <text style="color: black;">{{userInfo.nickName}}</text>
+  </view>
+  <scroll-view scroll-y="true" style="width:100%;height: 900rpx;"> 
+    <view
+      data-site="https://carlblog.site/"
+      bindtap="goToWeb"
+      class="link-card">
+      <image src="../../assets/images/me-blog.png"></image>
+      <p>个人博客，用于总结记录工作学习时掌握到的知识</p>
+    </view>
+    <view
+      data-site="https://carlblog.site/profile/"
+      bindtap="goToWeb"
+      class="link-card">
+      <image src="../../assets/images/profile.png"></image>
+      <p>个人简历</p>
+    </view>
+    <view
+      data-site="https://carlblog.site/qiankun-micro-apps/"
+      bindtap="goToWeb"
+      class="link-card">
+      <image src="../../assets/images/qiankun.png"></image>
+      <p>基于 qiankun 搭建的微前端应用</p>
+    </view>
+  </scroll-view>
+</view>
