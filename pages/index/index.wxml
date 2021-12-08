@@ -2,8 +2,10 @@
 <view class="container">
   <view class="top-bar">
     <text class="iconfont icon-sousuo search-icon"></text>
-    <input class="search-input" bindfocus="bindFocus" bindblur="bindblur" bindconfirm="bindconfirm" placeholder="搜你想搜的~" value="{{keyValue}}"/>
-    
+    <input class="search-input" bindfocus="bindFocus" bindblur="bindblur" bindconfirm="bindconfirm" placeholder="搜你想搜的~" value="{{keyValue}}" placeholder-class="placeholder"/>
+    <text 
+      bindtap="toIndex"
+      class="iconfont icon-shouye search-shouye"></text>
   </view>
   <view hidden="{{isShowSearchPanel || isShowSearchConent}}">
     <swiper autoplay indicator-dots>
@@ -127,7 +129,7 @@
   <view hidden="{{!isShowSearchPanel}}" class="hot-wrapper">
     <view class="hot-title">
       <text class="iconfont icon-remen search-icon-remen"></text>
-      <text>热门搜索</text>
+      <text style="color:#9aabe6">热门搜索</text>
     </view>
     <view class="hot-text-box">
       <text 
@@ -138,18 +140,22 @@
       >{{item.k}}</text>
     </view>
   </view>
-  <view hidden="{{!isShowSearchConent}}">
+  <view 
+    style="position: relative;top: -8rpx"
+    hidden="{{!isShowSearchConent}}">
     <view
       wx:for="{{searchResult.songs}}"
-      wx:key="id"
+      wx:key="songmid"
       bindtap="playMusic"
-      data-mid="{{item.mid}}"
+      data-mid="{{item.songmid}}"
       class="search-list-song-item">
+      <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
       <view class="search-title-box">
-        <text>{{item.name}}</text>
-        <text>{{item.singer}}</text>
+        <text>{{item.songname}}</text>
+        <text>{{item.singer[0].name}}</text>
       </view>
       <text class="iconfont icon-bofang play-btn"></text>
     </view>
   </view>
 </view>
+<image src="../../assets/images/moon.jpeg" class="bg-pic" mode="aspectFill"></image>

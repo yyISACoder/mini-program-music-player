@@ -49,6 +49,12 @@ Page({
     })
     this.getSearchContent(keyValue)
   },
+  toIndex() {
+    this.setData({
+      isShowSearchConent: false,
+      isShowSearchPanel:false
+    })
+  },
   bindconfirm(e) {
     let value = e.detail.value
     this.getSearchContent(value)
@@ -69,13 +75,14 @@ Page({
       isShowSearchConent: true,
     })
     request({
-      url: 'search/quick',
+      url: 'search',
       data: {
-        key
+        key,
+        pageSize:40
       }
-    }).then(({data})=>{
+    }).then(({data:{list}})=>{
       this.setData({
-        'searchResult.songs': data.song.itemlist
+        'searchResult.songs': list
       })
     })
   },

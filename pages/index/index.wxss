@@ -1,6 +1,6 @@
 
 .container {
-  padding: 90rpx 20rpx 20rpx 20rpx;
+  padding: 83rpx 0 20rpx 0;
 } 
 .top-bar {
   position: fixed;
@@ -8,36 +8,40 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: white;
+  background-color: #506ac782;
   z-index: 100;
   padding: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   box-shadow: 0 3rpx 15rpx #cccccc59;
 }
 .swiper-pic {
   width: 100%;
 }
 .search-icon {
-  width: 32rpx;
+  font-size: 28rpx;
   position: absolute;
   z-index: 5;
-  top:14px;
+  color: #506ac7;
   left: 30rpx;
 }
 .search-input {
   width:550rpx;
-  height: 70rpx;
+  height: 60rpx;
   border-radius: 70rpx;
-  background-color: #ebecec;
-  color: #333;
+  background-color: #506ac73d;
+  color: white;
   padding-left: 65rpx;
   font-size: 28rpx;
 }
-.search-input::-webkit-input-placeholder {
-  color: #b0b0b0;
-  font-size: 1rpx;
+.placeholder {
+  color: #506ac7;
+  font-size: 28rpx;
 }
 .recommend-box {
   margin-top: 15rpx;
+  padding: 0 20rpx;
 }
 .recommend-box .recommend-box-top {
   display: flex;
@@ -46,7 +50,7 @@
   position: relative;
 }
 .recommendbox-top-title {
-  color:rgba(26,26,26,1);
+  color:#9aabe6;
   font-size: 30rpx;
 }
 .recommend-box-scroll {
@@ -70,7 +74,7 @@
 }
 .recommend-box-item-title {
   position: absolute;
-    color: rgb(26 26 26 / 52%);
+    color: #9aabe6;
     bottom: -20rpx;
     left: 0;
     font-size: 20rpx;
@@ -86,15 +90,17 @@
   position: relative;
   left: 5rpx;
   font-size: 20rpx;
-  color: rgb(26 26 26 / 52%);
+  color: #9aabe6;
 }
 .arr-box {
   display: flex;
   align-items: center;
 }
 .more-arrow {
+  top: 3rpx;
+  position: relative;
   font-size: 30rpx;
-  color: rgb(26 26 26 / 52%);
+  color: #9aabe6;
 }
 .hot-title{ 
   color: #333;
@@ -104,7 +110,7 @@
   border-bottom: 1px solid #cccccc6b;
 }
 .hot-text-box text{
-  color: #333;
+  color: #9aabe6;
     font-size: 26rpx;
     padding: 5rpx 15rpx;
     border-radius: 50rpx;
@@ -118,7 +124,6 @@
   border-left: none;
   border-right: none;
   padding: 12rpx 0;
-  justify-content: space-between;
   align-items: center;
 }
 .search-title-box {
@@ -128,17 +133,43 @@
 }
 .search-title-box text:nth-child(1){
   font-size: 24rpx;
-  color: #333;
+  color: #9aabe6;
   margin-bottom: 5rpx;
+  width: 500rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
 }
 .search-title-box text:nth-child(2){
   font-size: 19rpx;
-  color: rgb(26 26 26 / 52%);
+  color: #9aabe6;
 }
 .play-btn {
+  color: #9aabe6;
   font-size: 30rpx;
+  position: absolute;
+  right: 0;
 }
 .search-icon-remen {
   color: red;
   font-size: 27rpx;
+}
+.search-shouye {
+  color: #506ac7;
+  font-size: 35rpx;
+  margin-right: 60rpx;
+}
+.bg-pic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.search-icon-res{
+  width: 58rpx;
+  height: 58rpx;
+  margin-right: 14rpx;
+  border-radius: 10rpx;
 }
