@@ -1,39 +1,116 @@
-// index.js
-// 获取应用实例
-const app = getApp()
+import {request} from '../../utils/util'
 
+const app = getApp()
 Page({
   data: {
+    searchResult: {
+      songs: []
+    },
+    isShowSearchConent: false,
+    isShowSearchPanel: false,
+    hotTextList: [],
+    newBannerList: [],
+    recommendListOfficial: [],
+    recommendListClassical: [],
+    recommendListLove: [],
+    recommendListNet: [],
+    recommendListKtv: [],
+    keyValue: '',
+    mapList: {
+      3317: 'recommendListOfficial',
+      59: 'recommendListClassical',
+      71: 'recommendListLove',
+      3056: 'recommendListNet',
+      64: 'recommendListKtv'
+    },
     userInfo: {
       nickName: 'Mr.Carl'
     }
   },
   onLoad() {
+    this.getRecommendList(3317)
+    this.getRecommendList(59)
+    this.getRecommendList(71)
+    this.getRecommendList(3056)
+    this.getRecommendList(64)
+    this.getBanner()
   },
-  goToWeb(e) {
-    wx.navigateTo({
-      url: `/pages/webView/webView?site=${e.currentTarget.dataset.site}`
-    })
-  },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
-  },
-  getUserInfo(e) {
-    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-    console.log(e)
+  bindFocus() {
+    this.getHotTextList()
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      isShowSearchConent: false,
+      isShowSearchPanel: true
+    })
+  },
+  chooseHotText(e) {
+    let keyValue = e.currentTarget.dataset.key
+    this.setData({
+      keyValue
+    })
+    this.getSearchContent(keyValue)
+  },
+  bindconfirm(e) {
+    let value = e.detail.value
+    this.getSearchContent(value)
+  },
+  bindblur() {
+    this.setData({
+      isShowSearchPanel: false
+    })
+  },
+  playMusic(e) {
+    wx.navigateTo({
+      url: `/pages/play/play?mid=${e.currentTarget.dataset.mid}`
+    })
+  },
+  getSearchContent(key) {
+    this.setData({
+      isShowSearchPanel: false,
+      isShowSearchConent: true,
+    })
+    request({
+      url: 'search/quick',
+      data: {
+        key
+      }
+    }).then(({data})=>{
+      this.setData({
+        'searchResult.songs': data.song.itemlist
+      })
+    })
+  },
+  getHotTextList() {
+    request({
+      url:'search/hot'
+    }).then(({data})=>{
+      this.setData({
+        hotTextList: data
+      })
+    })
+  },
+  getRecommendList(id){
+    request({
+      url:'recommend/playlist',
+      data: {
+        id,
+        pageNo: 1,
+        pageSize: 10
+      }
+    }).then(({data:{list}})=>{
+      
+      this.setData({
+        [this.data.mapList[id]]: list
+      })
+    })
+  },
+  getBanner() {
+    request({
+      url:'recommend/banner'
+    }).then(({data:newBannerList})=>{
+      
+      this.setData({
+        newBannerList
+      })
     })
   }
 })

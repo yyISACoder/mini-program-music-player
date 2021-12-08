@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container" style="background-image: url('{{albumCover}}')">
+  <view class="shade"></view>
+  <view class="shade1"></view>
+</view>
+<image src="../../assets/images/needle-ab.png" class="needle-ab" mode="widthFix"></image>

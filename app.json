@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/webView/webView"
+    "pages/play/play"
   ],
   "window":{
     "backgroundTextStyle":"light",

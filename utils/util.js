@@ -14,6 +14,29 @@ const formatNumber = n => {
   return n[1] ? n : `0${n}`
 }
 
+
+const request = ({url='',method='get',data=''}) => {
+  return new Promise((reslove,reject)=>{
+    wx.request({
+      url: `https://carlblog.site/qq-music-api/${url}`,
+      method,
+      data,
+      success({data}) {
+        reslove(data)
+      },
+      fail(err) {
+        wx.showToast({
+          title: '服务器接口出错啦~',
+          icon: 'none'
+        })
+        reject(err)
+      }
+    })
+  })
+}
+
+
 module.exports = {
-  formatTime
+  formatTime,
+  request
 }
