@@ -1,6 +1,6 @@
 
 .container {
-  padding: 83rpx 0 20rpx 0;
+  padding: 84rpx 0 20rpx 0;
 } 
 .top-bar {
   position: fixed;
@@ -102,6 +102,9 @@
   font-size: 30rpx;
   color: #9aabe6;
 }
+.hot-wrapper {
+  padding: 0 20rpx 20rpx 20rpx;
+}
 .hot-title{ 
   color: #333;
   font-size: 22rpx;
@@ -109,7 +112,7 @@
   padding-bottom: 6px;
   border-bottom: 1px solid #cccccc6b;
 }
-.hot-text-box text{
+.hot-text-box view{
   color: #9aabe6;
     font-size: 26rpx;
     padding: 5rpx 15rpx;
@@ -117,6 +120,15 @@
     border: 1px solid #cccccc6b;
     margin: 0 20rpx 10rpx 0;
     display: inline-block;
+    position: relative;
+}
+.hi-close {
+  color: #9aabe6;
+    font-size: 28rpx;
+    position: absolute;
+    z-index: 5;
+    right: -20rpx;
+    top: -10rpx;
 }
 .search-list-song-item {
   display: flex;
@@ -125,6 +137,7 @@
   border-right: none;
   padding: 12rpx 0;
   align-items: center;
+  position: relative;
 }
 .search-title-box {
   display: flex;
@@ -153,6 +166,7 @@
 .search-icon-remen {
   color: red;
   font-size: 27rpx;
+  margin-right: 3rpx;
 }
 .search-shouye {
   color: #506ac7;

@@ -15,6 +15,7 @@ Page({
     recommendListLove: [],
     recommendListNet: [],
     recommendListKtv: [],
+    historyList: [],
     keyValue: '',
     mapList: {
       3317: 'recommendListOfficial',
@@ -35,7 +36,14 @@ Page({
     this.getRecommendList(64)
     this.getBanner()
   },
+  getHistory() {
+    let historyList = JSON.parse(wx.getStorageSync('searchKey') ? wx.getStorageSync('searchKey') : '[]')
+    this.setData({
+      historyList
+    })
+  },
   bindFocus() {
+    this.getHistory()
     this.getHotTextList()
     this.setData({
       isShowSearchConent: false,
@@ -69,7 +77,27 @@ Page({
       url: `/pages/play/play?mid=${e.currentTarget.dataset.mid}`
     })
   },
+  deleteHis(e) {
+    e.cancel
+    let key = e.currentTarget.dataset.key
+    let keyArr = JSON.parse(wx.getStorageSync('searchKey'))
+    let index = keyArr.indexOf(key)
+    keyArr.splice(index,1)
+    wx.setStorageSync('searchKey', JSON.stringify(keyArr))
+    this.setData({
+      historyList: keyArr
+    })
+  },
   getSearchContent(key) {
+    let keyArr = wx.getStorageSync('searchKey')
+    if(!keyArr) {  
+      wx.setStorageSync('searchKey', JSON.stringify([key]))
+    }else{
+      let arr = JSON.parse(keyArr)
+      arr.push(key)
+      arr = Array.from(new Set(arr))
+      wx.setStorageSync('searchKey', JSON.stringify(arr))
+    }
     this.setData({
       isShowSearchPanel: false,
       isShowSearchConent: true,
@@ -91,7 +119,7 @@ Page({
       url:'search/hot'
     }).then(({data})=>{
       this.setData({
-        hotTextList: data
+        hotTextList: data.slice(0,10)
       })
     })
   },

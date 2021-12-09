@@ -2,7 +2,7 @@
 <view class="container">
   <view class="top-bar">
     <text class="iconfont icon-sousuo search-icon"></text>
-    <input class="search-input" bindfocus="bindFocus" bindblur="bindblur" bindconfirm="bindconfirm" placeholder="搜你想搜的~" value="{{keyValue}}" placeholder-class="placeholder"/>
+    <input class="search-input" bindfocus="bindFocus" bindconfirm="bindconfirm" placeholder="搜你想搜的~" value="{{keyValue}}" placeholder-class="placeholder"/>
     <text 
       bindtap="toIndex"
       class="iconfont icon-shouye search-shouye"></text>
@@ -132,16 +132,30 @@
       <text style="color:#9aabe6">热门搜索</text>
     </view>
     <view class="hot-text-box">
-      <text 
+      <view 
       wx:for="{{hotTextList}}" 
       wx:key="k"
       data-key="{{item.k}}"
       bindtap="chooseHotText"
-      >{{item.k}}</text>
+      >{{item.k}}</view>
+    </view>
+
+    <view class="hot-title">
+      <text class="iconfont icon-lishijilu search-icon-remen" style="color: #9aabe6;"></text>
+      <text style="color:#9aabe6">历史搜索</text>
+    </view>
+    <view class="hot-text-box">
+      <view 
+      style="padding: 5rpx 35rpx;margin: 0rpx 35rpx 30rpx 0;"
+      wx:for="{{historyList}}" 
+      wx:key="*this"
+      data-key="{{item}}"
+      bindtap="chooseHotText"
+      >{{item}}<text class="icon-guanbi-quxiao-guanbi iconfont hi-close" catchtap="deleteHis" data-key="{{item}}"></text></view>
     </view>
   </view>
   <view 
-    style="position: relative;top: -8rpx"
+    style="position: relative;top: -8rpx;padding:0 20rpx 20rpx 20rpx"
     hidden="{{!isShowSearchConent}}">
     <view
       wx:for="{{searchResult.songs}}"
@@ -158,4 +172,4 @@
     </view>
   </view>
 </view>
-<image src="../../assets/images/moon.jpeg" class="bg-pic" mode="aspectFill"></image>
+<image src="https://carlblog.site/common-pics/moon.jpeg" class="bg-pic" mode="aspectFill"></image>

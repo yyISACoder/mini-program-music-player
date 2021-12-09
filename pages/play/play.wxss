@@ -45,9 +45,122 @@ pointer-events: none;
   pointer-events: none;
 }
 .needle-ab {
-  width: 146rpx;
+  width: 115rpx;
+    position: fixed;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: 0 0;
+    top: -30rpx;
+    transform: rotate(-40deg) translateX(-50%);
+}
+.border-play {
+  animation: needle-ab-animate 0.6s linear forwards;
+}
+.cover-play {
+  animation: cover-play-animate 10s linear infinite;
+}
+.border-stop {
+  animation: needle-ab-animate-stop 0.6s linear forwards;
+}
+@keyframes needle-ab-animate-stop{
+  0% {
+    top: 0;
+    transform: rotate(0deg) translateX(-50%);
+  }
+  100% {
+    top: -30rpx;
+    transform: rotate(-40deg) translateX(-50%)
+  }
+}
+@keyframes needle-ab-animate{
+  0% {
+    top: -30rpx;
+    transform: rotate(-40deg) translateX(-50%)
+  }
+  100% {
+    top: 0;
+    transform: rotate(0deg) translateX(-50%);
+  }
+}
+@keyframes cover-play-animate{
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.border-pic {
+  width: 450rpx;
   position: fixed;
-  z-index: 3;
-  top: 0;
-  left: 45%;
+  z-index: 5;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 120rpx;
+}
+.albumCover-pic {
+  width: 280rpx;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 6;
+  left: 50%;
+  margin-left: -140rpx;
+  transform-origin: center center;
+  top: 206rpx;
+}
+.song-title {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 600rpx;
+  color: #fefefe;
+  font-size: 40rpx;
+  z-index: 5;
+}
+.singer-title {
+  color: hsla(0,0%,100%,.6);
+  font-size: 28rpx;
+}
+.play-btn {
+  pointer-events: none;
+  position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    z-index: 6;
+    top: 290rpx;
+    width: 100rpx;
+}
+.song-title-name {
+  max-width: 500rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 12rpx;
+}
+.scroll-view {
+  position: fixed;
+  width: 100%;
+  top: 700rpx;
+  z-index: 8;
+  height: 260rpx
+}
+.lyric-box-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: hsla(0,0%,100%,.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  transition: all 0.3s linear;
+}
+.active-lyric {
+  color: #fefefe;
+  font-size: 35rpx;
 }
