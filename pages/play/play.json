@@ -2,6 +2,5 @@
   "usingComponents": {},
   "navigationBarTitleText": "播放页",
   "navigationBarTextStyle":"white",
-  "navigationBarBackgroundColor": "#5165ad",
-  "requiredBackgroundModes":["audio"]
+  "navigationBarBackgroundColor": "#5165ad"
 }

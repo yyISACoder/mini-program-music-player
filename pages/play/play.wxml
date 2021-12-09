@@ -6,7 +6,7 @@
 <image src="https://carlblog.site/common-pics/border.png" class="border-pic" mode="widthFix"></image> 
 <image src="../../assets/images/needle-ab.png" class="needle-ab  {{borderPlay}}" mode="widthFix"></image>
 <image src="{{albumCover}}" class="albumCover-pic cover-play" mode="widthFix"  bindtap="playOrStop" style="{{coverAnimateState}}"></image>
-<view class="song-title"><text class="song-title-name">{{detail.track_info.name}}</text> -<text class="singer-title" decode>&nbsp;{{detail.track_info.singer[0].name}}</text></view>
+<view class="song-title"><text class="song-title-name" decode>{{detail.track_info.name}}&nbsp;-</text><text class="singer-title" decode>&nbsp;{{detail.track_info.singer[0].name}}</text></view>
 <image src="../../assets/images/play-btn.png" class="play-btn" mode="widthFix" hidden="{{isPlaying}}"></image>
 <scroll-view scroll-y class="scroll-view" scroll-top="{{lyricScrollTop}}" scroll-into-view="{{scrollIntoView}}">
     <view

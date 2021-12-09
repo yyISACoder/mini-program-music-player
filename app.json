@@ -9,6 +9,7 @@
     "navigationBarTitleText": "Weixin",
     "navigationBarTextStyle":"black"
   },
+  "requiredBackgroundModes":["audio"],
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

@@ -147,6 +147,7 @@ Page({
     })
   },
   playOrStop() {
+    debugger
     if(this.data.isPlaying) {
       this.setData({
         coverAnimateState: 'animation-play-state:paused',
@@ -160,14 +161,14 @@ Page({
         borderPlay: 'border-play',
         isPlaying: true
       })
+      this.audioCtx.play()
       if(this.isOver) {
         this.isOver = false
         this.setData({
           scrollIntoView: ''
         })
-        this.audioCtx.seek(0.000)
+        this.audioCtx.seek(0)
       }
-      this.audioCtx.play()
     }
   },
   getMusicDetail() {

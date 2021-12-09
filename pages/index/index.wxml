@@ -129,7 +129,7 @@
   <view hidden="{{!isShowSearchPanel}}" class="hot-wrapper">
     <view class="hot-title">
       <text class="iconfont icon-remen search-icon-remen"></text>
-      <text style="color:#9aabe6">热门搜索</text>
+      <text style="color:#9aabe6;position: relative;top:-2rpx">热门搜索</text>
     </view>
     <view class="hot-text-box">
       <view 
@@ -142,7 +142,7 @@
 
     <view class="hot-title">
       <text class="iconfont icon-lishijilu search-icon-remen" style="color: #9aabe6;"></text>
-      <text style="color:#9aabe6">历史搜索</text>
+      <text style="color:#9aabe6;position: relative;top:-2rpx">历史搜索</text>
     </view>
     <view class="hot-text-box">
       <view 

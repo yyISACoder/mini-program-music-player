@@ -124,6 +124,8 @@ pointer-events: none;
 .singer-title {
   color: hsla(0,0%,100%,.6);
   font-size: 28rpx;
+  position: relative;
+  top: 4rpx;
 }
 .play-btn {
   pointer-events: none;
