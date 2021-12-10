@@ -5,9 +5,9 @@
 </view>
 <image src="https://carlblog.site/common-pics/border.png" class="border-pic" mode="widthFix"></image> 
 <image src="../../assets/images/needle-ab.png" class="needle-ab  {{borderPlay}}" mode="widthFix"></image>
-<image src="{{albumCover}}" class="albumCover-pic cover-play" mode="widthFix"  bindtap="playOrStop" style="{{coverAnimateState}}"></image>
+<image src="{{albumCover}}" class="albumCover-pic cover-play" mode="widthFix"  style="{{coverAnimateState}}"></image>
 <view class="song-title"><text class="song-title-name" decode>{{detail.track_info.name}}&nbsp;-</text><text class="singer-title" decode>&nbsp;{{detail.track_info.singer[0].name}}</text></view>
-<image src="../../assets/images/play-btn.png" class="play-btn" mode="widthFix" hidden="{{isPlaying}}"></image>
+<!-- <image src="../../assets/images/play-btn.png" class="play-btn" mode="widthFix" hidden="{{isPlaying}}"></image> -->
 <scroll-view scroll-y class="scroll-view" scroll-top="{{lyricScrollTop}}" scroll-into-view="{{scrollIntoView}}">
     <view
       id="time-{{item.time}}"
@@ -17,4 +17,53 @@
       {{item.content}}
     </view>
 </scroll-view>
+<view class="slide-box">
+  <text class="current-play-time">{{currentPlayTime}}</text>
+  <text class="total-play-time">{{totalPlayTime}}</text>
+  <slider value="{{slideVal}}" backgroundColor="#fefefe47" activeColor="#fff" block-size="12" bindchange="slider1change"/>
+</view>
+<view class="control-box">
+  <text class="iconfont icon-danquxunhuan-icon {{playMode}}" bindtap="changeMode"></text>
+  <text class="iconfont icon-shangyishou icon-shangyishou-icon"></text>
+  <text class="iconfont icon-xiayishou icon-xiayishou-icon"></text>
+  <text bindtap="playOrStop" class="iconfont icon-bofang1-icon {{playBtn}}"></text>
+</view>
+<view class="bottom-panel" style="top:{{bottomPanelTop}};opacity:{{bottomPanelTopNumber >= bottomPanelTopReal ? 0.5 : 1}}" id="bottomPanel">
+  <view class="switch-top-bar" bindtouchstart="bottomPanelTouchstart" bindtouchmove="bottomPanelTouchmove" bindtouchend="bottomPanelTouchEnd" >
+    <view class="switch-line-top"></view>
+    <view class="switch-top-bar-item {{activeSwitch === 'play' ? 'active-swicth' : ''}}" bindtap="chooseSwitch" data-key="play">
+      播放列表
+      <view hidden="{{activeSwitch !== 'play'}}" class="switch-line"></view>
+    </view>
+    <view class="switch-top-bar-item {{activeSwitch === 'comment' ? 'active-swicth' : ''}}" bindtap="chooseSwitch" data-key="comment">
+      精彩评论
+      <view hidden="{{activeSwitch !== 'comment'}}" class="switch-line"></view>
+    </view>
+    <view class="switch-top-bar-item {{activeSwitch === 'like' ? 'active-swicth' : ''}}" bindtap="chooseSwitch" data-key="like">
+      猜你喜欢
+      <view hidden="{{activeSwitch !== 'like'}}" class="switch-line"></view>
+    </view>
+  </view>
+  <scroll-view scroll-y class="scroll-view-bottom">
+    <view class="scroll-view-container">
+      <view hidden="{{activeSwitch !== 'play'}}">
+        <view
+          wx:for="{{playList}}"
+          wx:key="songmid"
+          bindtap="playMusicList"
+          data-mid="{{item.songmid}}"
+          class="search-list-song-item">
+          <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
+          <view class="search-title-box">
+            <text>{{item.name}}</text>
+            <text>{{item.singer}}</text>
+          </view>
+          <text class="iconfont icon-bofang play-btn-res"></text>
+    </view>
+      </view>
+      <view hidden="{{activeSwitch !== 'comment'}}"></view>
+      <view hidden="{{activeSwitch !== 'like'}}"></view>
+    </view>
+  </scroll-view>
+</view>
 

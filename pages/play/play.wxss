@@ -45,13 +45,13 @@ pointer-events: none;
   pointer-events: none;
 }
 .needle-ab {
-  width: 115rpx;
+  width: 90rpx;
     position: fixed;
     z-index: 10;
     left: 50%;
     transform: translateX(-50%);
     transform-origin: 0 0;
-    top: -30rpx;
+    top: -20rpx;
     transform: rotate(-40deg) translateX(-50%);
 }
 .border-play {
@@ -69,13 +69,13 @@ pointer-events: none;
     transform: rotate(0deg) translateX(-50%);
   }
   100% {
-    top: -30rpx;
+    top: -20rpx;
     transform: rotate(-40deg) translateX(-50%)
   }
 }
 @keyframes needle-ab-animate{
   0% {
-    top: -30rpx;
+    top: -20rpx;
     transform: rotate(-40deg) translateX(-50%)
   }
   100% {
@@ -92,22 +92,22 @@ pointer-events: none;
   }
 }
 .border-pic {
-  width: 450rpx;
+  width: 350rpx;
   position: fixed;
   z-index: 5;
   left: 50%;
   transform: translateX(-50%);
-  top: 120rpx;
+  top: 98rpx;
 }
 .albumCover-pic {
-  width: 280rpx;
+  width: 220rpx;
   border-radius: 50%;
   position: fixed;
   z-index: 6;
   left: 50%;
-  margin-left: -140rpx;
+  margin-left: -110rpx;
   transform-origin: center center;
-  top: 206rpx;
+  top: 163rpx;
 }
 .song-title {
   position: fixed;
@@ -116,7 +116,7 @@ pointer-events: none;
   justify-content: center;
   align-items: center;
   left: 0;
-  top: 600rpx;
+  top: 480rpx;
   color: #fefefe;
   font-size: 40rpx;
   z-index: 5;
@@ -126,6 +126,7 @@ pointer-events: none;
   font-size: 28rpx;
   position: relative;
   top: 4rpx;
+  left: -8rpx;
 }
 .play-btn {
   pointer-events: none;
@@ -147,7 +148,7 @@ pointer-events: none;
 .scroll-view {
   position: fixed;
   width: 100%;
-  top: 700rpx;
+  top: 590rpx;
   z-index: 8;
   height: 260rpx
 }
@@ -165,4 +166,153 @@ pointer-events: none;
 .active-lyric {
   color: #fefefe;
   font-size: 35rpx;
+}
+.slide-box {
+  position: fixed;
+  z-index: 6;
+  top: 880rpx;
+  width: 100%;
+  left: 0;
+  padding: 0 30rpx;
+  box-sizing: border-box
+}
+.current-play-time,.total-play-time {
+  position: absolute;
+  color: #fefefe47;
+  font-size: 20rpx;
+  top: 60rpx;
+}
+.current-play-time {
+  left: 50rpx;
+}
+.total-play-time {
+  right: 66rpx;
+}
+.control-box {
+  position: fixed;
+  z-index: 8;
+  width: 100%;
+  left: 0;
+  top: 1000rpx;
+}
+.icon-danquxunhuan-icon {
+  color: #fefefe47;
+  font-size: 35rpx;
+  position: absolute;
+  left: 8%;
+  top: 7rpx;
+}
+.icon-shangyishou-icon{
+  color: #fefefe;
+  font-size: 40rpx;
+  position: absolute;
+  left: 29%;
+}
+.icon-xiayishou-icon {
+  color: #fefefe;
+    font-size: 40rpx;
+    position: absolute;
+    left: 66%;
+}
+.icon-bofang1-icon {
+  color: #fefefe;
+    font-size: 80rpx;
+    position: absolute;
+    top: -20rpx;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.bottom-panel {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  z-index: 20;
+  background-color: rgba(255, 255, 255);
+  border-radius: 50rpx 50rpx 0 0;
+  opacity: 0.5;
+}
+.switch-top-bar {
+  padding-top: 15rpx;
+  display: flex;
+  position: relative;
+}
+.switch-top-bar-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  color: #333;
+  font-size: 30rpx;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.switch-line-top {
+  position: absolute;
+  left: 50%;
+  top: 16rpx;
+  transform: translateX(-50%);
+  width: 80rpx;
+  height: 7rpx;
+  border-radius: 5rpx;
+  background: #3333337a;
+}
+.active-swicth {
+  color: #9aabe6;
+}
+.switch-line {
+  width: 140rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2rpx;
+  bottom: 0;
+  background-color: #9aabe6;
+}
+.scroll-view-container {
+  padding: 20rpx;
+}
+.scroll-view-bottom{
+  width: 100%;
+  height: 1000rpx;
+}
+.search-list-song-item {
+  display: flex;
+  border: 1rpx solid #cccccc2e;
+  border-left: none;
+  border-right: none;
+  padding: 12rpx 0;
+  align-items: center;
+  position: relative;
+}
+.search-title-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.search-title-box text:nth-child(1){
+  font-size: 24rpx;
+  color: #9aabe6;
+  margin-bottom: 5rpx;
+  width: 500rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+.search-title-box text:nth-child(2){
+  font-size: 19rpx;
+  color: #9aabe6;
+}
+.play-btn-res {
+  color: #9aabe6;
+  font-size: 30rpx;
+  position: absolute;
+  right: 0;
+}
+.search-icon-res{
+  width: 58rpx;
+  height: 58rpx;
+  margin-right: 14rpx;
+  border-radius: 10rpx;
 }

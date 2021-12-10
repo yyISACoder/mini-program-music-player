@@ -146,7 +146,7 @@
     </view>
     <view class="hot-text-box">
       <view 
-      style="padding: 5rpx 35rpx;margin: 0rpx 35rpx 30rpx 0;"
+      style="margin: 0rpx 35rpx 30rpx 0;"
       wx:for="{{historyList}}" 
       wx:key="*this"
       data-key="{{item}}"
