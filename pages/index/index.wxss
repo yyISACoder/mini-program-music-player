@@ -187,3 +187,8 @@
   margin-right: 14rpx;
   border-radius: 10rpx;
 }
+.comment-title{
+  font-size: 30rpx;
+  color: #9aabe6;
+  margin-bottom: 20rpx;
+}

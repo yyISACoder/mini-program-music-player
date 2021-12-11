@@ -3,7 +3,10 @@ import {request} from '../../utils/util'
 const app = getApp()
 Page({
   data: {
-    mid: '',
+    scrollTopPlay: 0,
+    scrollTopComment: 0,
+    commentListNew: [],
+    commentList: [],
     detail: {},
     playList: [],
     albumCover: '',
@@ -21,12 +24,17 @@ Page({
     activeSwitch: 'play',
     bottomPanelTop: '1100rpx',
     bottomPanelTopReal: 0,
-    bottomPanelTopNumber: Number.MAX_SAFE_INTEGER
+    bottomPanelTopNumber: Number.MAX_SAFE_INTEGER,
+    isLoadCommentOver:false
   },
   onLoad(e) {
+    this.pageNoComment= 1
+    this.mid = e.mid
     this.bottomPanelHeight = 0
     this.isMoveOver = true
     this.pixelRatio = app.deviceInfo.pixelRatio
+    this.startMoveTime = 0
+    this.endMoveTime = 0
     this.startMoveY = 0
     this.endMoveY = 0
     this.playModeListIndex = 0
@@ -44,34 +52,7 @@ Page({
       })
     })
     this.audioCtx.onEnded(()=>{
-      clearInterval(this.lyricInterVal)
-      this.lyricInterVal= null
-      this.prevActiveTime = 0
-      this.currentTime = 0
-      this.playModeListIndex = 0
-        this.setData({
-          playBtn: 'icon-bofang',
-          currentPlayTime: '00:00',
-          slideVal: 0,
-          coverAnimateState: 'animation-play-state:paused',
-          borderPlay: 'border-stop',
-          isPlaying: false,
-          scrollIntoView: ''
-        },()=>{
-          debugger
-          if(this.data.playMode === 'icon-danquxunhuan') {
-            this.setData({
-              coverAnimateState: 'animation-play-state:play',
-              borderPlay: 'border-play',
-              isPlaying: true,
-              playBtn: 'icon-zanting'
-            })
-            this.audioCtx.title = this.data.detail.track_info.name
-            this.audioCtx.src = this.musicSrc 
-      
-            this.audioCtx.seek(0)
-          }
-        })
+      this.reset(true)
     })
     this.audioCtx.onCanplay(()=>{
       this.duration = parseInt(this.audioCtx.duration)
@@ -117,16 +98,138 @@ Page({
     let playList = wx.getStorageSync('playList') ? JSON.parse(wx.getStorageSync('playList')) : []
     this.setData({
       playList,
-      mid: e.mid
     },()=>{
-      this.getMusicDetail().then(()=>{
-        this.getMUsicUrl()
-        this.getLyric()
-      })
+      this.init()
     })
   },
+  init() {
+    this.getMusicDetail().then(()=>{
+      this.getCommentList(true)
+      this.getCommentList()
+      this.getMUsicUrl()
+      this.getLyric()
+    })
+  },
+  scrolltolower() {
+    if(this.data.isLoadCommentOver) {
+      return
+    }
+    this.getCommentList()
+  },
+  getCommentList(isHot) {
+    if(isHot) {
+      request({
+        url: 'comment',
+        data: {
+          id: this.data.detail.track_info.id,
+          pageNo: 1,
+          type: 1,
+          biztype: 1,
+          pageSize: 5
+        }
+      }).then(({data:{comment:{commentlist}}})=>{
+        commentlist.forEach(item=>{
+          let date = new Date(item.time * 1000)
+          let year = date.getFullYear()
+          let month= date.getMonth() + 1
+          let day = date.getDate()
+          item.timeDisplay = `${year}年${month}月${day}日`
+        })
+        this.setData({
+          commentList:commentlist
+        })
+      })
+    }else{
+      request({
+        url: 'comment',
+        data: {
+          id: this.data.detail.track_info.id,
+          pageNo: this.pageNoComment,
+          type: 0,
+          biztype: 1,
+          pageSize: 20
+        }
+      }).then(({data:{comment:{commentlist}}})=>{
+        this.pageNoComment++
+        commentlist.forEach(item=>{
+          let date = new Date(item.time * 1000)
+          let year = date.getFullYear()
+          let month= date.getMonth() + 1
+          let day = date.getDate()
+          item.timeDisplay = `${year}年${month}月${day}日`
+        })
+        let tmp = JSON.parse(JSON.stringify(this.data.commentListNew))
+        tmp.push(...commentlist)
+        if(commentlist.length < 20) {
+          this.setData({
+            isLoadCommentOver: true,
+            commentListNew:tmp
+          })
+        }else{
+          this.setData({
+            commentListNew:tmp
+          })
+        }
+      })
+    }
+  },
+  reset(overFlag){
+    return new Promise(resolve=>{
+      clearInterval(this.lyricInterVal)
+      this.lyricInterVal= null
+      this.audioCtx.stop()
+      this.prevActiveTime = 0
+      this.currentTime = 0
+        this.setData({
+          playBtn: 'icon-bofang',
+          currentPlayTime: '00:00',
+          slideVal: 0,
+          coverAnimateState: 'animation-play-state:paused',
+          borderPlay: 'border-stop',
+          isPlaying: false,
+          scrollIntoView: ''
+        },()=>{
+          if(!overFlag) {
+            resolve()
+            return
+          }
+          if(this.data.playMode === 'icon-danquxunhuan') {
+            this.setData({
+              coverAnimateState: 'animation-play-state:play',
+              borderPlay: 'border-play',
+              isPlaying: true,
+              playBtn: 'icon-zanting'
+            })
+            this.audioCtx.title = this.data.detail.track_info.name
+            this.audioCtx.src = this.musicSrc 
+      
+            this.audioCtx.seek(0)
+          }
+          resolve()
+        })
+    })
+  },
+  bottomPanelTouchEnd(e) {
+    this.endMoveY = e.changedTouches[0].clientY
+    this.endMoveTime = e.timeStamp
+    if(this.endMoveTime - this.startMoveTime < 300) {
+      return
+    }
+    if(this.endMoveY >= this.startMoveY) {
+      this.setData({
+        bottomPanelTopNumber: this.data.bottomPanelTopReal + 20,
+        bottomPanelTop: this.data.bottomPanelTopReal + 'px'
+      })
+    }else{
+      this.setData({
+        bottomPanelTopNumber: app.deviceInfo.windowHeight - this.bottomPanelHeight + 20,
+        bottomPanelTop: app.deviceInfo.windowHeight - this.bottomPanelHeight + 'px'
+      })
+    }
+  },
   bottomPanelTouchstart(e) {
-    this.startMoveY = e.touches[0].clientY + 'px'
+    this.startMoveY = e.touches[0].clientY
+    this.startMoveTime = e.timeStamp
   },
   bottomPanelTouchmove(e) {
     let clientY = e.touches[0].clientY
@@ -160,6 +263,34 @@ Page({
       let playTime = Math.round(this.duration * (value / 100))
       this.audioCtx.seek(playTime)
   },
+  playMusicList(e){
+    this.mid = e.currentTarget.dataset.mid
+    this.pageNoComment = 1
+    this.setData({
+      bottomPanelTopNumber: this.data.bottomPanelTopReal + 20,
+      bottomPanelTop: this.data.bottomPanelTopReal + 'px',
+      commentListNew: [],
+      commentList: [],
+      isLoadCommentOver: false,
+      scrollTopPlay: 0,
+    },()=>{
+      this.setData({
+        activeSwitch: 'comment'
+      },()=>{
+        this.setData({
+          scrollTopComment: 0
+        },()=>{
+          this.setData({
+            activeSwitch: 'play'
+          },()=>{
+            this.reset().then(()=>{
+              this.init()
+            })
+          })
+        })
+      })
+    })
+  },
   lyricActive() {
     let match = this.data.lyric.find(item=>{
       return item.time === this.currentTime
@@ -188,7 +319,7 @@ Page({
     request({
       url: 'lyric',
       data: {
-        songmid: this.data.mid
+        songmid: this.mid
       }
     }).then(({data:{lyric}})=>{
       let arr = lyric.split('\n').slice(5)
@@ -225,7 +356,7 @@ Page({
     request({
       url: 'song/url',
       data: {
-        id: this.data.mid
+        id: this.mid
       }
     }).then(res=>{
       if(res.result !== 100) {
@@ -271,32 +402,36 @@ Page({
     }
   },
   getMusicDetail() {
-    return request({
-      url: 'song',
-      data: {
-        songmid: this.data.mid
-      }
-    }).then(({data})=>{
-      this.setData({
-        detail: data,
-        albumCover: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${data.track_info.album.mid}.jpg`
-      })
+    return new Promise(resolve=>{
+      request({
+        url: 'song',
+        data: {
+          songmid: this.mid
+        }
+      }).then(({data})=>{
+        this.setData({
+          detail: data,
+          albumCover: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${data.track_info.album.mid}.jpg`
+        },()=>{
+          let playList = JSON.parse(JSON.stringify(this.data.playList))
+          let music = {
+            songmid: data.track_info.mid,
+            name: data.track_info.name,
+            albummid: data.track_info.album.mid,
+            singer: data.track_info.singer[0].name
+          }
+          playList = playList.filter(item=>{
+            return item.songmid !== music.songmid
+          })
+          playList.unshift(music)
+          this.setData({
+            playList
+          })
+          wx.setStorageSync('playList', JSON.stringify(playList))
 
-      let playList = JSON.parse(JSON.stringify(this.data.playList))
-      let music = {
-        songmid: data.track_info.mid,
-        name: data.track_info.name,
-        albummid: data.track_info.album.mid,
-        singer: data.track_info.singer[0].name
-      }
-      playList = playList.filter(item=>{
-        return item.songmid !== music.songmid
+          resolve()
+        })
       })
-      playList.unshift(music)
-      this.setData({
-        playList
-      })
-      wx.setStorageSync('playList', JSON.stringify(playList))
     })
   }
 })

@@ -230,6 +230,7 @@ pointer-events: none;
   background-color: rgba(255, 255, 255);
   border-radius: 50rpx 50rpx 0 0;
   opacity: 0.5;
+  transition: all 0.1s ease-in-out;
 }
 .switch-top-bar {
   padding-top: 15rpx;
@@ -243,7 +244,7 @@ pointer-events: none;
   align-items: center;
   height: 80rpx;
   color: #333;
-  font-size: 30rpx;
+  font-size: 33rpx;
   padding: 0 40rpx;
   box-sizing: border-box;
   position: relative;
@@ -271,7 +272,7 @@ pointer-events: none;
   background-color: #9aabe6;
 }
 .scroll-view-container {
-  padding: 20rpx;
+  padding: 20rpx 40rpx;
 }
 .scroll-view-bottom{
   width: 100%;
@@ -286,14 +287,23 @@ pointer-events: none;
   align-items: center;
   position: relative;
 }
+.search-list-song-item-comment {
+  display: block;
+  padding: 24rpx 0 24rpx 95rpx;
+  position: relative;
+}
+.comment-avatar {
+  position: absolute;
+  left: 0;
+}
 .search-title-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .search-title-box text:nth-child(1){
-  font-size: 24rpx;
-  color: #9aabe6;
+  font-size: 28rpx;
+  color: #333;
   margin-bottom: 5rpx;
   width: 500rpx;
   overflow: hidden;
@@ -301,18 +311,55 @@ pointer-events: none;
   text-overflow:ellipsis;
 }
 .search-title-box text:nth-child(2){
-  font-size: 19rpx;
-  color: #9aabe6;
+  font-size: 24rpx;
+  color: #3333339c;
+  position: relative;
+  top: -5rpx;
 }
 .play-btn-res {
   color: #9aabe6;
-  font-size: 30rpx;
+  font-size: 38rpx;
   position: absolute;
   right: 0;
 }
 .search-icon-res{
-  width: 58rpx;
-  height: 58rpx;
+  width: 79rpx;
+  height: 79rpx;
   margin-right: 14rpx;
-  border-radius: 10rpx;
+  border-radius: 50%;
+}
+.comment-title{
+  font-size: 30rpx;
+  color: #9aabe6;
+  margin-bottom: 25rpx;
+}
+.coment-content {
+  font-size: 30rpx;
+  margin-top: 6rpx;
+}
+.dianzan {
+  font-size: 22rpx;
+  position: relative;
+  top: 5rpx;
+  color: #3333339c;
+  float: right;
+  right: 5rpx;
+}
+.praisenum {
+  color: #3333339c;
+  position: relative;
+  top: 0rpx;
+  right: 0;
+  font-size: 22rpx;
+  float: right;
+}
+.comment-perf .search-list-song-item:last-child {
+  border-bottom: none;
+}
+.comment-over-text {
+  font-size: 25rpx;
+  display: flex;
+  justify-content: center;
+  color: #3333339c;
+  margin-top: 30rpx;
 }
