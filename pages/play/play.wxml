@@ -24,8 +24,8 @@
 </view>
 <view class="control-box">
   <text class="iconfont icon-danquxunhuan-icon {{playMode}}" bindtap="changeMode"></text>
-  <text class="iconfont icon-shangyishou icon-shangyishou-icon"></text>
-  <text class="iconfont icon-xiayishou icon-xiayishou-icon"></text>
+  <text bindtap="playLast" class="iconfont icon-shangyishou icon-shangyishou-icon"></text>
+  <text bindtap="playNext" class="iconfont icon-xiayishou icon-xiayishou-icon"></text>
   <text bindtap="playOrStop" class="iconfont icon-bofang1-icon {{playBtn}}"></text>
 </view>
 <view class="bottom-panel" style="top:{{bottomPanelTop}};opacity:{{bottomPanelTopNumber >= bottomPanelTopReal ? 0.5 : 1}}" id="bottomPanel">

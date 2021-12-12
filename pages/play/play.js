@@ -28,6 +28,7 @@ Page({
     isLoadCommentOver:false
   },
   onLoad(e) {
+    this.playIndex = 0
     this.pageNoComment= 1
     this.mid = e.mid
     this.bottomPanelHeight = 0
@@ -193,17 +194,54 @@ Page({
             resolve()
             return
           }
+          this.setData({
+            coverAnimateState: 'animation-play-state:play',
+            borderPlay: 'border-play',
+            isPlaying: true,
+            playBtn: 'icon-zanting'
+          })
           if(this.data.playMode === 'icon-danquxunhuan') {
-            this.setData({
-              coverAnimateState: 'animation-play-state:play',
-              borderPlay: 'border-play',
-              isPlaying: true,
-              playBtn: 'icon-zanting'
-            })
             this.audioCtx.title = this.data.detail.track_info.name
             this.audioCtx.src = this.musicSrc 
       
             this.audioCtx.seek(0)
+          }else if(this.data.playMode === 'icon-23_shunxubofang'){
+            let currentIndex = this.playIndex + 1
+            if(currentIndex > this.data.playList.length - 1) {
+              wx.showToast({
+                title: '没有下一首啦～',
+                icon: 'none'
+              })
+              return
+            }
+            this.mid = this.data.playList[currentIndex].songmid
+            this.pageNoComment = 1
+            this.setData({
+              commentListNew: [],
+              commentList: [],
+              isLoadCommentOver: false,
+              scrollTopPlay: 0,
+              scrollTopComment: 0
+            },()=>{
+              this.reset().then(()=>{
+                this.init()
+              })
+            })
+          }else {
+            let index = Math.ceil(Math.random() * (this.data.playList.length - 1))
+            this.mid = this.data.playList[index].songmid
+            this.pageNoComment = 1
+            this.setData({
+              commentListNew: [],
+              commentList: [],
+              isLoadCommentOver: false,
+              scrollTopPlay: 0,
+              scrollTopComment: 0
+            },()=>{
+              this.reset().then(()=>{
+                this.init()
+              })
+            })
           }
           resolve()
         })
@@ -291,6 +329,57 @@ Page({
       })
     })
   },
+  playLast(){
+    let currentIndex = this.playIndex - 1
+    if(currentIndex < 0) {
+      wx.showToast({
+        title: '没有上一首啦～',
+        icon: 'none'
+      })
+      return
+    }
+    this.mid = this.data.playList[currentIndex].songmid
+    this.pageNoComment = 1
+    this.setData({
+      commentListNew: [],
+      commentList: [],
+      isLoadCommentOver: false,
+      scrollTopPlay: 0,
+      scrollTopComment: 0
+    },()=>{
+      this.reset().then(()=>{
+        this.init()
+      })
+    })
+  },
+  playNext(){
+    if(this.data.playMode === 'icon-danquxunhuan' || this.data.playMode === 'icon-23_shunxubofang') {
+      let currentIndex = this.playIndex + 1
+      if(currentIndex > this.data.playList.length - 1) {
+        wx.showToast({
+          title: '没有下一首啦～',
+          icon: 'none'
+        })
+        return
+      }
+      this.mid = this.data.playList[currentIndex].songmid
+    } else {
+      let index = Math.ceil(Math.random() * (this.data.playList.length - 1))
+      this.mid = this.data.playList[index].songmid
+    }
+    this.pageNoComment = 1
+    this.setData({
+      commentListNew: [],
+      commentList: [],
+      isLoadCommentOver: false,
+      scrollTopPlay: 0,
+      scrollTopComment: 0
+    },()=>{
+      this.reset().then(()=>{
+        this.init()
+      })
+    })
+  },
   lyricActive() {
     let match = this.data.lyric.find(item=>{
       return item.time === this.currentTime
@@ -322,6 +411,7 @@ Page({
         songmid: this.mid
       }
     }).then(({data:{lyric}})=>{
+      this.lyricMap = {}
       let arr = lyric.split('\n').slice(5)
       arr.forEach(item=>{
         let time = item.split('').slice(0,10).join('')
@@ -341,7 +431,8 @@ Page({
         }
       }
       this.setData({
-        lyric: tmpArr
+        lyric: tmpArr,
+        lyricScrollTop: 0
       })
     })
   },
@@ -420,10 +511,17 @@ Page({
             albummid: data.track_info.album.mid,
             singer: data.track_info.singer[0].name
           }
-          playList = playList.filter(item=>{
-            return item.songmid !== music.songmid
+          let res = playList.find(item=>{
+            return item.songmid === music.songmid
           })
-          playList.unshift(music)
+          if(!res) {
+            playList.unshift(music)
+          }
+          playList.forEach((item,index)=>{
+            if(item.songmid === music.songmid) {
+              this.playIndex = index
+            }
+          })
           this.setData({
             playList
           })
