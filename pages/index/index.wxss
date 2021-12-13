@@ -13,7 +13,6 @@
   padding: 10rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   box-shadow: 0 3rpx 15rpx #cccccc59;
 }
 .swiper-pic {
@@ -112,15 +111,15 @@
   padding-bottom: 6px;
   border-bottom: 1px solid #cccccc6b;
 }
-.hot-text-box view{
+.hot-text-box .his-view{
   color: #9aabe6;
     font-size: 26rpx;
     padding: 5rpx 15rpx;
     border-radius: 50rpx;
     border: 1px solid #cccccc6b;
-    margin: 0 20rpx 10rpx 0;
     display: inline-block;
     position: relative;
+    margin: 0rpx 35rpx 30rpx 0;
 }
 .hi-close {
   color: #9aabe6;
@@ -168,10 +167,10 @@
   font-size: 27rpx;
   margin-right: 3rpx;
 }
-.search-shouye {
+.search-shouye{
   color: #506ac7;
   font-size: 35rpx;
-  margin-right: 60rpx;
+  margin: 0 8rpx 0 32rpx;
 }
 .bg-pic {
   position: fixed;
@@ -191,4 +190,29 @@
   font-size: 30rpx;
   color: #9aabe6;
   margin-bottom: 20rpx;
+}
+.close-search {
+  position: absolute;
+  right: 170rpx;
+  color: #506ac7;
+  z-index: 10;
+}
+.no-data-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.icon-zanwushuju-css {
+  font-size: 40rpx;
+  color: #9aabe6;
+  margin-bottom: 12rpx;
+}
+.no-data-text {
+  font-size: 25rpx;
+  color: #9aabe6;
+}
+.icon-bofangqi_shouyegequliebiao_css {
+  color: #506ac7;
+  font-size: 46rpx;
 }

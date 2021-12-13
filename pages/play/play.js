@@ -25,12 +25,13 @@ Page({
     bottomPanelTop: '1100rpx',
     bottomPanelTopReal: 0,
     bottomPanelTopNumber: Number.MAX_SAFE_INTEGER,
-    isLoadCommentOver:false
+    isLoadCommentOver:false,
+    likeList: []
   },
   onLoad(e) {
+    this.mid = ''
     this.playIndex = 0
     this.pageNoComment= 1
-    this.mid = e.mid
     this.bottomPanelHeight = 0
     this.isMoveOver = true
     this.pixelRatio = app.deviceInfo.pixelRatio
@@ -100,6 +101,15 @@ Page({
     this.setData({
       playList,
     },()=>{
+      if(e.mid) {
+        this.mid = e.mid
+      }else {
+        if(playList.length) {
+          this.mid = playList[0].songmid
+        }else {
+          return
+        }
+      }
       this.init()
     })
   },
@@ -109,6 +119,19 @@ Page({
       this.getCommentList()
       this.getMUsicUrl()
       this.getLyric()
+      this.getSimilarSong()
+    })
+  },
+  getSimilarSong() {
+    request({
+      url: 'song/similar',
+      data: {
+        id: this.mid,
+      }
+    }).then(({data})=>{
+      this.setData({
+        likeList: data
+      })
     })
   },
   scrolltolower() {
@@ -116,6 +139,19 @@ Page({
       return
     }
     this.getCommentList()
+  },
+  playMv() {
+    let vid = this.data.detail.track_info.mv.vid
+    if(!vid) {
+      wx.showToast({
+        title: '当前歌曲不存在mv哦~',
+        icon: 'none'
+      })
+      return
+    }
+    wx.navigateTo({
+      url: `/pages/playVideo/playVideo?id=${vid}`
+    })
   },
   getCommentList(isHot) {
     if(isHot) {
@@ -129,12 +165,16 @@ Page({
           pageSize: 5
         }
       }).then(({data:{comment:{commentlist}}})=>{
+        if(!commentlist) {
+          commentlist = [] 
+        }
         commentlist.forEach(item=>{
           let date = new Date(item.time * 1000)
           let year = date.getFullYear()
           let month= date.getMonth() + 1
           let day = date.getDate()
           item.timeDisplay = `${year}年${month}月${day}日`
+          item.rootcommentcontent = item.rootcommentcontent !== undefined ? item.rootcommentcontent.replace(/\\n/g,'\n') : ''
         })
         this.setData({
           commentList:commentlist
@@ -151,6 +191,9 @@ Page({
           pageSize: 20
         }
       }).then(({data:{comment:{commentlist}}})=>{
+        if(!commentlist) {
+          commentlist = [] 
+        }
         this.pageNoComment++
         commentlist.forEach(item=>{
           let date = new Date(item.time * 1000)
@@ -158,6 +201,7 @@ Page({
           let month= date.getMonth() + 1
           let day = date.getDate()
           item.timeDisplay = `${year}年${month}月${day}日`
+          item.rootcommentcontent = item.rootcommentcontent !== undefined ? item.rootcommentcontent.replace(/\\n/g,'\n') : ''
         })
         let tmp = JSON.parse(JSON.stringify(this.data.commentListNew))
         tmp.push(...commentlist)

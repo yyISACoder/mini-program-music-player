@@ -17,6 +17,7 @@ Page({
     recommendListKtv: [],
     historyList: [],
     keyValue: '',
+    isFocus: false,
     mapList: {
       3317: 'recommendListOfficial',
       59: 'recommendListClassical',
@@ -42,12 +43,23 @@ Page({
       historyList
     })
   },
+  deleteSearch() {
+    this.setData({
+      keyValue: ''
+    })
+  },
+  bindblurSearch() {
+    this.setData({
+      isFocus: false
+    })
+  },
   bindFocus() {
     this.getHistory()
     this.getHotTextList()
     this.setData({
       isShowSearchConent: false,
-      isShowSearchPanel: true
+      isShowSearchPanel: true,
+      isFocus: true
     })
   },
   chooseHotText(e) {
@@ -101,6 +113,7 @@ Page({
     this.setData({
       isShowSearchPanel: false,
       isShowSearchConent: true,
+      'searchResult.songs': []
     })
     request({
       url: 'search',
@@ -146,6 +159,11 @@ Page({
       this.setData({
         newBannerList
       })
+    })
+  },
+  toPlay() {
+    wx.navigateTo({
+      url: '/pages/play/play'
     })
   }
 })

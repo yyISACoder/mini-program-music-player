@@ -1,0 +1,1 @@
+<video src="{{mvSrc}}" controls autoplay loop show-mute-btn title="{{detail.name}}"></video>

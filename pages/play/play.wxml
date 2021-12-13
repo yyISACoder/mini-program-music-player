@@ -24,6 +24,7 @@
 </view>
 <view class="control-box">
   <text class="iconfont icon-danquxunhuan-icon {{playMode}}" bindtap="changeMode"></text>
+  <text class="iconfont icon-MV32 icon-MV-css" bindtap="playMv"></text>
   <text bindtap="playLast" class="iconfont icon-shangyishou icon-shangyishou-icon"></text>
   <text bindtap="playNext" class="iconfont icon-xiayishou icon-xiayishou-icon"></text>
   <text bindtap="playOrStop" class="iconfont icon-bofang1-icon {{playBtn}}"></text>
@@ -32,40 +33,49 @@
   <view class="switch-top-bar" bindtouchstart="bottomPanelTouchstart" bindtouchmove="bottomPanelTouchmove" bindtouchend="bottomPanelTouchEnd" >
     <view class="switch-line-top"></view>
     <view class="switch-top-bar-item {{activeSwitch === 'play' ? 'active-swicth' : ''}}" catchtap="chooseSwitch" data-key="play">
-      播放列表
+      播放列表<text class="iconfont icon-bofangqi_shouyegequliebiao_" style="font-size: 42rpx;position: relative;top: 3rpx;"></text>
       <view hidden="{{activeSwitch !== 'play'}}" class="switch-line"></view>
     </view>
     <view class="switch-top-bar-item {{activeSwitch === 'comment' ? 'active-swicth' : ''}}" catchtap="chooseSwitch" data-key="comment">
-      评论列表
+      评论列表<text class="iconfont icon-liebiao" style="font-size: 30rpx;position: relative;top: 5rpx;left: 5rpx;"></text>
       <view hidden="{{activeSwitch !== 'comment'}}" class="switch-line"></view>
     </view>
     <view class="switch-top-bar-item {{activeSwitch === 'like' ? 'active-swicth' : ''}}" catchtap="chooseSwitch" data-key="like">
-      猜你喜欢
+      猜你喜欢<text class="iconfont icon-xiai" style="font-size: 33rpx;position: relative;top: 5rpx;left: 6rpx;"></text>
       <view hidden="{{activeSwitch !== 'like'}}" class="switch-line"></view>
     </view>
   </view>
     <view class="scroll-view-container">
       <view hidden="{{activeSwitch !== 'play'}}">
         <scroll-view scroll-y="true" class="scroll-view-bottom" scroll-top="{{scrollTopPlay}}">
+        <block wx:if="{{playList.length}}">
           <view
           wx:for="{{playList}}"
           wx:key="songmid"
           bindtap="playMusicList"
           data-mid="{{item.songmid}}"
           class="search-list-song-item">
-          <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
-          <view class="search-title-box">
-            <text>{{item.name}}</text>
-            <text>{{item.singer}}</text>
+            <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
+            <view class="search-title-box">
+              <text>{{item.name}}</text>
+              <text>{{item.singer}}</text>
+            </view>
+            <text class="iconfont icon-bofang play-btn-res"></text>
           </view>
-          <text class="iconfont icon-bofang play-btn-res"></text>
-        </view>
+        </block>
+        <block wx:else>
+          <view class="no-data-box" style="margin-top: 150rpx;">
+            <text class="iconfont icon-zanwushuju icon-zanwushuju-css"></text>
+            <text class="no-data-text">暂无数据哦~</text>
+          </view> 
+        </block>
         </scroll-view>
       </view>
       <view hidden="{{activeSwitch !== 'comment'}}">
         <scroll-view scroll-y="true" class="scroll-view-bottom" bindscrolltolower='scrolltolower' scroll-top="{{scrollTopComment}}">
-        <view class="comment-perf">
-          <view class="comment-title">精彩评论</view>
+        <block wx:if="{{commentList.length || commentListNew.length}}">
+          <view class="comment-perf">
+          <view class="comment-title"><text class="iconfont icon-remen search-icon-remen"></text>热门评论</view>
           <view
           wx:for="{{commentList}}"
           wx:key="commentid"
@@ -76,13 +86,16 @@
           <view class="search-title-box comment-search-title-box">
             <text>{{item.nick}}</text>
             <text>{{item.timeDisplay}}</text>
-            <view class="coment-content">{{item.rootcommentcontent}}</view>
+            <text class="coment-content">{{item.rootcommentcontent}}</text>
           </view>
           <!-- <text class="iconfont icon-bofang play-btn-res"></text> -->
         </view>
         </view>
         <view class="comment-perf">
-          <view class="comment-title" style="padding: 20rpx 0 0 0">最新评论</view>
+          <view class="comment-title" style="padding: 20rpx 0 0 0">
+            <text class="iconfont icon-lishijilu" decode="true"></text>
+            <text style="position: relative;left: 3rpx;">最新评论</text>
+          </view>
         <view
           wx:for="{{commentListNew}}"
           wx:key="commentid"
@@ -93,15 +106,47 @@
           <view class="search-title-box comment-search-title-box">
             <text>{{item.nick}}</text>
             <text>{{item.timeDisplay}}</text>
-            <view class="coment-content">{{item.rootcommentcontent}}</view>
+            <text class="coment-content">{{item.rootcommentcontent}}</text>
           </view>
           <!-- <text class="iconfont icon-bofang play-btn-res"></text> -->
         </view>
         </view>
         <view class="comment-over-text" hidden="{{!isLoadCommentOver}}">已经到底了哦～</view>
+        </block>
+        <block wx:else>
+          <view class="no-data-box" style="margin-top: 150rpx;">
+            <text class="iconfont icon-zanwushuju icon-zanwushuju-css"></text>
+            <text class="no-data-text">暂无数据哦~</text>
+          </view> 
+        </block>
         </scroll-view>
       </view>
-      <view hidden="{{activeSwitch !== 'like'}}"></view>
+      <view hidden="{{activeSwitch !== 'like'}}">
+        <scroll-view scroll-y="true" class="scroll-view-bottom">
+        <block wx:if="{{likeList.length}}">
+          <view
+          wx:for="{{likeList}}"
+          wx:key="songmid"
+          bindtap="playMusicList"
+          data-mid="{{item.songmid}}"
+          class="search-list-song-item">
+            <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
+            <view class="search-title-box">
+              <text>{{item.name}}</text>
+              <text>{{item.singer}}</text>
+            </view>
+            <text class="iconfont icon-bofang play-btn-res"></text>
+          </view>
+          <view class="comment-over-text">已经到底了哦～</view>
+        </block>
+        <block wx:else>
+          <view class="no-data-box" style="margin-top: 150rpx;">
+            <text class="iconfont icon-zanwushuju icon-zanwushuju-css"></text>
+            <text class="no-data-text">暂无数据哦~</text>
+          </view> 
+        </block>
+        </scroll-view> 
+      </view>
     </view>
 </view>
 

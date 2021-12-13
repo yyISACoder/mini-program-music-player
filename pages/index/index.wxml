@@ -2,10 +2,14 @@
 <view class="container">
   <view class="top-bar">
     <text class="iconfont icon-sousuo search-icon"></text>
-    <input class="search-input" bindfocus="bindFocus" bindconfirm="bindconfirm" placeholder="搜你想搜的~" value="{{keyValue}}" placeholder-class="placeholder"/>
+    <input class="search-input" bindfocus="bindFocus" bindconfirm="bindconfirm" placeholder="搜你想听的~" value="{{keyValue}}" placeholder-class="placeholder" bindblur="bindblurSearch"/>
     <text 
       bindtap="toIndex"
       class="iconfont icon-shouye search-shouye"></text>
+      <text 
+      bindtap="toPlay"
+      class="iconfont icon-bofangqi_shouyegequliebiao_ icon-bofangqi_shouyegequliebiao_css" style="position: relative;top: 2rpx;"></text>
+      <text class="icon-guanbi-quxiao-guanbi iconfont close-search" bindtap="deleteSearch" hidden="{{!isFocus}}"></text>
   </view>
   <view hidden="{{isShowSearchPanel || isShowSearchConent}}">
     <swiper autoplay indicator-dots>
@@ -133,6 +137,8 @@
     </view>
     <view class="hot-text-box">
       <view 
+      style="margin: 0 12rpx 12rpx 0"
+      class="his-view"
       wx:for="{{hotTextList}}" 
       wx:key="k"
       data-key="{{item.k}}"
@@ -145,19 +151,28 @@
       <text style="color:#9aabe6;position: relative;top:-2rpx">历史搜索</text>
     </view>
     <view class="hot-text-box">
-      <view 
-      style="margin: 0rpx 35rpx 30rpx 0;"
-      wx:for="{{historyList}}" 
-      wx:key="*this"
-      data-key="{{item}}"
-      bindtap="chooseHotText"
-      >{{item}}<text class="icon-guanbi-quxiao-guanbi iconfont hi-close" catchtap="deleteHis" data-key="{{item}}"></text></view>
+      <block wx:if="{{historyList.length}}">
+        <view 
+        class="his-view"
+        wx:for="{{historyList}}" 
+        wx:key="*this"
+        data-key="{{item}}"
+        bindtap="chooseHotText"
+        >{{item}}<text class="icon-guanbi-quxiao-guanbi iconfont hi-close" catchtap="deleteHis" data-key="{{item}}"></text></view>
+      </block>
+      <block wx:else>
+        <view class="no-data-box">
+          <text class="iconfont icon-zanwushuju icon-zanwushuju-css"></text>
+          <text class="no-data-text">暂无数据哦~</text>
+        </view>
+      </block>
     </view>
   </view>
   <view 
     style="position: relative;top: -8rpx;padding:0 20rpx 20rpx 20rpx"
     hidden="{{!isShowSearchConent}}">
-    <view
+    <block wx:if="{{searchResult.songs.length}}">
+      <view
       wx:for="{{searchResult.songs}}"
       wx:key="songmid"
       bindtap="playMusic"
@@ -170,6 +185,13 @@
       </view>
       <text class="iconfont icon-bofang play-btn"></text>
     </view>
+    </block>
+    <block wx:else>
+      <view class="no-data-box" style="margin-top: 150rpx;">
+          <text class="iconfont icon-zanwushuju icon-zanwushuju-css"></text>
+          <text class="no-data-text">暂无数据哦~</text>
+      </view>
+    </block>
   </view>
 </view>
 <image src="https://carlblog.site/common-pics/moon.jpeg" class="bg-pic" mode="aspectFill"></image>

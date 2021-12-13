@@ -363,3 +363,25 @@ pointer-events: none;
   color: #3333339c;
   margin-top: 30rpx;
 }
+.no-data-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.icon-zanwushuju-css {
+  font-size: 40rpx;
+  color: #9aabe6;
+  margin-bottom: 12rpx;
+}
+.no-data-text {
+  font-size: 25rpx;
+  color: #9aabe6;
+}
+.icon-MV-css {
+  color: #fefefe47;
+  font-size: 44rpx;
+  position: absolute;
+  right: 8.1%;
+  top: 1rpx;
+}
