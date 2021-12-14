@@ -20,3 +20,37 @@ UI上参考了网易云和QQ音乐，然后加了一点自己的想法与设计�
 由于自己之前有开发小程序的经验，因此只花了大概五天的时间，最后的效果我还是基本满意的，以后就可以用自己开发的这个音乐播放器愉快地听歌咯🥰
 
 最后的最后，如果你喜欢这个项目，请给一个 **star**⭐ 吧！
+
+## 界面截图
+
+### 首页
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/index.png)
+
+### 搜索
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/serach.png)
+
+### 搜索结果
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/search-res.png)
+
+### 歌单详情
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/music-list.png)
+
+### 音频播放页
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/play.png)
+
+### 评论列表
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/comment.png)
+
+### 播放记录
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/play-list.png)
+
+### 视频播放页
+
+![pic](https://github.com/yyISACoder/mini-program-music-player/blob/main/assets/images/video.png)
