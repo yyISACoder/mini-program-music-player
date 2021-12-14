@@ -15,7 +15,7 @@
     <swiper autoplay indicator-dots>
     <block wx:for="{{newBannerList}}" wx:key="id">
       <swiper-item>
-        <image src="{{item.picUrl}}" mode="widthFix" class="swiper-pic"></image>
+        <image src="{{item.picUrl}}" mode="widthFix" class="swiper-pic" data-id="{{item.id}}" bindtap="chooseBanner"></image>
       </swiper-item>
     </block>
   </swiper>
@@ -23,8 +23,8 @@
     <view class="recommend-box-top">
       <text class="recommendbox-top-title">官方歌单</text>
       <view class="arr-box">
-        <text class="recommend-box-top-more">更多</text> 
-        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text>
+        <!-- <text class="recommend-box-top-more">更多</text> 
+        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text> -->
       </view>
     </view>
     <scroll-view
@@ -33,7 +33,9 @@
       <view class="recommend-box-scroll-wrap">
         <view
           wx:key="tid"
+          data-id="{{item.tid}}"
           wx:for="{{recommendListOfficial}}"
+          bindtap="goToDeatailMenu"
           class="recommend-box-item">
           <image src="{{item.cover_url_medium}}" mode="widthFix"></image>
           <text class="recommend-box-item-title">{{item.title}}</text>
@@ -45,8 +47,8 @@
     <view class="recommend-box-top">
       <text class="recommendbox-top-title">经典</text>
       <view class="arr-box">
-        <text class="recommend-box-top-more">更多</text> 
-        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text>
+        <!-- <text class="recommend-box-top-more">更多</text> 
+        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text> -->
       </view>
     </view>
     <scroll-view
@@ -56,6 +58,8 @@
         <view
           wx:key="tid"
           wx:for="{{recommendListClassical}}"
+          data-id="{{item.tid}}"
+          bindtap="goToDeatailMenu"
           class="recommend-box-item">
           <image src="{{item.cover_url_medium}}" mode="widthFix"></image>
           <text class="recommend-box-item-title">{{item.title}}</text>
@@ -67,8 +71,8 @@
     <view class="recommend-box-top">
       <text class="recommendbox-top-title">情歌</text>
       <view class="arr-box">
-        <text class="recommend-box-top-more">更多</text> 
-        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text>
+        <!-- <text class="recommend-box-top-more">更多</text> 
+        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text> -->
       </view>
     </view>
     <scroll-view
@@ -78,6 +82,8 @@
         <view
           wx:key="tid"
           wx:for="{{recommendListLove}}"
+          data-id="{{item.tid}}"
+          bindtap="goToDeatailMenu"
           class="recommend-box-item">
           <image src="{{item.cover_url_medium}}" mode="widthFix"></image>
           <text class="recommend-box-item-title">{{item.title}}</text>
@@ -89,8 +95,8 @@
     <view class="recommend-box-top">
       <text class="recommendbox-top-title">网络歌曲</text>
       <view class="arr-box">
-        <text class="recommend-box-top-more">更多</text> 
-        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text>
+        <!-- <text class="recommend-box-top-more">更多</text> 
+        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text> -->
       </view>
     </view>
     <scroll-view
@@ -99,6 +105,8 @@
       <view class="recommend-box-scroll-wrap">
         <view
           wx:key="tid"
+          data-id="{{item.tid}}"
+          bindtap="goToDeatailMenu"
           wx:for="{{recommendListNet}}"
           class="recommend-box-item">
           <image src="{{item.cover_url_medium}}" mode="widthFix"></image>
@@ -111,8 +119,8 @@
     <view class="recommend-box-top">
       <text class="recommendbox-top-title">KTV热歌</text>
       <view class="arr-box">
-        <text class="recommend-box-top-more">更多</text> 
-        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text>
+        <!-- <text class="recommend-box-top-more">更多</text> 
+        <text class="iconfont icon-jiantou_yemian_xiangyou more-arrow"></text> -->
       </view>
     </view>
     <scroll-view
@@ -121,6 +129,8 @@
       <view class="recommend-box-scroll-wrap">
         <view
           wx:key="tid"
+          data-id="{{item.tid}}"
+          bindtap="goToDeatailMenu"
           wx:for="{{recommendListKtv}}"
           class="recommend-box-item">
           <image src="{{item.cover_url_medium}}" mode="widthFix"></image>

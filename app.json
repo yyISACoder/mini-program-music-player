@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/play/play",
-    "pages/playVideo/playVideo"
+    "pages/playVideo/playVideo",
+    "pages/menu/menu"
   ],
   "window":{
     "backgroundTextStyle":"light",

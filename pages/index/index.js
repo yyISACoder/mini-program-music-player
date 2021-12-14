@@ -142,13 +142,28 @@ Page({
       data: {
         id,
         pageNo: 1,
-        pageSize: 10
+        pageSize: 20
       }
     }).then(({data:{list}})=>{
-      
       this.setData({
         [this.data.mapList[id]]: list
       })
+    })
+  },
+  chooseBanner(e) {
+    // let id = e.currentTarget.dataset.id
+    // wx.navigateTo({
+    //   url: `/pages/menu/menu?albumId=${id}`
+    // })
+    wx.showToast({
+      title: '别点了，跳转功能还需要完善~', //banner接口仅会返回专辑推荐，但是只能获取 albumid，非 albummid
+      icon: 'none'
+    })
+  },
+  goToDeatailMenu(e){
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/menu/menu?id=${id}`
     })
   },
   getBanner() {

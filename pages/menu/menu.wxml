@@ -1,0 +1,22 @@
+<view class="head-banner">
+  <image src="{{detail.logo}}" class="banner-pic" mode="widthFix"></image>
+  <view class="mask-container" hidden="{{!detail.desc}}">
+    <text decode>{{detail.desc}}</text>
+  </view>
+</view>
+<view class="song-container">
+  <view class="song-title"><text class="iconfont icon-bofangqi_shouyegequliebiao_ icon-bofangqi_shouyegequliebiao_css"></text>歌单</view>
+  <view
+    wx:for="{{detail.songlist}}"
+    wx:key="{{item.songid}}"
+    data-songid="{{item.songmid}}"
+    bindtap="goToPlay"
+    class="search-list-song-item">
+      <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
+      <view class="search-title-box">
+        <text>{{item.songname}}</text>
+        <text>{{item.singer[0].name}}</text>
+      </view>
+      <text class="iconfont icon-bofang play-btn-res"></text>
+    </view>
+</view>

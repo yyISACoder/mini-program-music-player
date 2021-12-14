@@ -1,0 +1,85 @@
+.head-banner {
+  position: relative;
+  height: 450rpx;
+  overflow: hidden;
+}
+.banner-pic {
+  width: 100%;
+}
+.song-title {
+  color: #9aabe6;
+  font-size: 33rpx;
+  margin-bottom: 25rpx;
+}
+.mask-container {
+  position: absolute;
+  display: block;
+  background-color: #00000059;
+  color: white;
+  font-size: 26rpx;
+  bottom: 25rpx;
+  right: 10rpx;
+  max-width: 90%;
+  padding: 5rpx 20rpx;
+  border-radius: 20rpx;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+.search-list-song-item:nth-child(2) {
+  border-top: none;
+}
+.search-list-song-item:last-child {
+  border-bottom: none;
+}
+.song-container {
+  padding: 20rpx;
+}
+.search-list-song-item {
+  display: flex;
+  border: 1rpx solid #cccccc2e;
+  border-left: none;
+  border-right: none;
+  padding: 12rpx 0;
+  align-items: center;
+  position: relative;
+}
+.search-icon-res{
+  width: 79rpx;
+  height: 79rpx;
+  margin-right: 14rpx;
+  border-radius: 50%;
+}
+.search-title-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.search-title-box text:nth-child(1){
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 5rpx;
+  width: 500rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+.search-title-box text:nth-child(2){
+  font-size: 24rpx;
+  color: #3333339c;
+  position: relative;
+  top: -5rpx;
+}
+.play-btn-res {
+  color: #9aabe6;
+  font-size: 38rpx;
+  position: absolute;
+  right: 0;
+}
+.icon-bofangqi_shouyegequliebiao_css {
+  position: relative;
+  top: 6rpx;
+  font-size: 45rpx;
+}
