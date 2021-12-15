@@ -149,6 +149,15 @@ Page({
       })
       return
     }
+
+    this.setData({
+      coverAnimateState: 'animation-play-state:paused',
+      borderPlay: 'border-stop',
+      isPlaying: false,
+      playBtn: 'icon-bofang'
+    })
+    this.audioCtx.pause()
+
     wx.navigateTo({
       url: `/pages/playVideo/playVideo?id=${vid}`
     })
@@ -294,7 +303,7 @@ Page({
   bottomPanelTouchEnd(e) {
     this.endMoveY = e.changedTouches[0].clientY
     this.endMoveTime = e.timeStamp
-    if(this.endMoveTime - this.startMoveTime < 300) {
+    if(this.endMoveTime - this.startMoveTime < 100) {
       return
     }
     if(this.endMoveY >= this.startMoveY) {

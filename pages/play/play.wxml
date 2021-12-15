@@ -54,13 +54,14 @@
           wx:key="songmid"
           bindtap="playMusicList"
           data-mid="{{item.songmid}}"
-          class="search-list-song-item">
+          class="search-list-song-item {{item.songmid === detail.track_info.mid ? 'active' : ''}}">
             <image mode="aspectFill" class="search-icon-res" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000{{item.albummid}}.jpg"></image>
             <view class="search-title-box">
-              <text>{{item.name}}</text>
-              <text>{{item.singer}}</text>
+              <text style="color:{{item.songmid === detail.track_info.mid ? '#9aabe6' : '#333'}}">{{item.name}}</text>
+              <text  style="color:{{item.songmid === detail.track_info.mid ? '#9aabe6' : '#3333339c'}}">{{item.singer}}</text>
             </view>
-            <text class="iconfont icon-bofang play-btn-res"></text>
+            <text wx:if="{{item.songmid !== detail.track_info.mid}}" class="iconfont icon-bofang play-btn-res"></text>
+            <image wx:else src="../../assets/images/wave.gif" class="wave" mode="widthFix"></image>
           </view>
         </block>
         <block wx:else>

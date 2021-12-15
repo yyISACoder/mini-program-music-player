@@ -286,6 +286,11 @@ pointer-events: none;
   padding: 12rpx 0;
   align-items: center;
   position: relative;
+  padding: 10rpx;
+}
+.search-list-song-item.active{
+  background-color: #827a7a1f;
+  border-radius: 6rpx;
 }
 .search-list-song-item-comment {
   display: block;
@@ -384,4 +389,10 @@ pointer-events: none;
   position: absolute;
   right: 8.1%;
   top: 1rpx;
+}
+.wave {
+  position: absolute;
+  right: 0;
+  width: 30rpx;
+  right: 10rpx;
 }
